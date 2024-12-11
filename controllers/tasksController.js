@@ -96,6 +96,7 @@ const createNewTask = (req, res) => {
     })
 }
 
+// deleting a task
 const deleteTask = (req, res) => {
     const taskId = req.params.id;
 
@@ -125,9 +126,36 @@ const deleteTask = (req, res) => {
     });
 }
 
+// updating a task
+const updateTask = (req, res) => {
+    const taskId = parseInt(req.params.id);
+    const updates = req.body;
+
+    // Find the task to update
+    const targetTask = tasks.find(t => t.id === taskId);
+
+    if (!targetTask) {
+        return res.status(404).json({
+            isSucccess: false,
+            message: `The task with id:${taskId} is not found!`
+        });
+    }
+
+    // Update the task
+    tasks = tasks.map(task =>
+        task.id === taskId ? { ...task, ...updates } : task
+    );
+
+    return res.status(200).json({
+        isSucccess: true,
+        message: `The task with the id:${taskId} has been updated successfully!`
+    });
+};
+
 module.exports = {
     getAllTasks,
     getSingletask,
     createNewTask,
-    deleteTask
+    deleteTask,
+    updateTask
 }
