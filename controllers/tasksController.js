@@ -17,6 +17,26 @@ const getAllTasks = (req, res) => {
     })
 }
 
+// getting single task
+const getSingletask = (req, res) => {
+    const taskId = req.params.id
+
+    const targetTask = tasks.find(t => t.id === parseInt(taskId));
+
+    if (!targetTask) {
+        return res.status(400).json({
+            isSucccess: false,
+            message: `The task with id:${taskId} is not found!`
+        })
+    }
+
+    return res.status(200).json({
+        isSucccess: true,
+        message: `Task with id:${taskId} is found!`,
+        task: targetTask
+    })
+}
+
 // creating a new task
 const createNewTask = (req, res) => {
     const { name, description, dueDate, status } = req.body
@@ -57,5 +77,6 @@ const createNewTask = (req, res) => {
 
 module.exports = {
     getAllTasks,
+    getSingletask,
     createNewTask
 }
