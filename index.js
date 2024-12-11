@@ -1,13 +1,13 @@
 const express = require("express")
 const dotenv = require("dotenv")
-const router = require("./routes/tasksRoutes")
+const taskRouter = require("./routes/tasksRoutes")
 
 const app = express()
 dotenv.config()
 
 app.use(express.json())
 
-app.use("/tasks", router)
+app.use("/tasks", taskRouter)
 
 // listening to port
 const PORT = process.env.PORT;
