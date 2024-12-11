@@ -131,7 +131,6 @@ const updateTask = (req, res) => {
     const taskId = parseInt(req.params.id);
     const updates = req.body;
 
-    // Find the task to update
     const targetTask = tasks.find(t => t.id === taskId);
 
     if (!targetTask) {
@@ -141,7 +140,6 @@ const updateTask = (req, res) => {
         });
     }
 
-    // Update the task
     tasks = tasks.map(task =>
         task.id === taskId ? { ...task, ...updates } : task
     );
