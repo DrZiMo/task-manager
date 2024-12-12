@@ -140,6 +140,15 @@ const updateTask = (req, res) => {
         });
     }
 
+    const validStatus = ["completed", "pending", "in-progress"]
+
+    if (!validStatus.includes(updates.status)) {
+        return res.status(400).json({
+            isSucccess: false,
+            message: "Please enter a valid status!"
+        })
+    }
+
     tasks = tasks.map(task =>
         task.id === taskId ? { ...task, ...updates } : task
     );
